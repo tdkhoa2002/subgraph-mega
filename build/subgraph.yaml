@@ -1,0 +1,55 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: megafactory
+    network: sepolia
+    source:
+      abi: megafactory
+      address: "0xb414D7C60DC87eDb46Ea5987f9043653aBE3af34"
+      startBlock: 4318669
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - DeployedGame
+        - Order
+        - OwnershipTransferred
+      abis:
+        - name: megafactory
+          file: megafactory\abis\megafactory.json
+      eventHandlers:
+        - event: DeployedGame(address,address,address,address,uint256,uint256,uint256,uint256)
+          handler: handleDeployedGame
+        - event: Order(address,uint256,uint256,uint256)
+          handler: handleOrder
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: megafactory\megafactory.wasm
+templates:
+  - kind: ethereum/contract
+    name: megajackpot
+    network: sepolia
+    source:
+      abi: megajackpot
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: templates\megajackpot\megajackpot.wasm
+      entities:
+        - CreateGame
+      abis:
+        - name: megafactory
+          file: megajackpot\abis\megafactory.json
+        - name: megajackpot
+          file: megajackpot\abis\megajackpot.json
+      eventHandlers:
+        - event: CreateGame(string,uint256,uint256,uint256,uint256,uint256,uint256[],uint256[],uint256,string,address)
+          handler: handleCreatedGame
+        - event: Order(uint256,uint256,bool,uint256,uint256,uint256,uint256)
+          handler: handleOrder
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred

@@ -1,0 +1,48 @@
+type DeployedGame @entity {
+  id: Bytes!
+  contractGameNew: Bytes! # address
+  projectOwner: Bytes! # address
+  contractGameOrigin: Bytes! # address
+  contractToken: Bytes! # address
+  deployedFee: BigInt! # uint256
+  affFee: BigInt! # uint256
+  devFee: BigInt! # uint256
+  mktFee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CreateGame @entity {
+  id: Bytes!
+  title: String!
+  price: BigInt!
+  startPrice: BigInt!
+  affiliatePercent: BigInt!
+  ownerPercent: BigInt!
+  jackpotPercent: BigInt!
+  values: [BigInt!]
+  percents: [BigInt!]
+  idGame: BigInt!
+  newGameContract: Bytes!
+}
+
+type Order @entity {
+  id: Bytes!
+  contractGame: Bytes! # address
+  idGame: BigInt! # uint256
+  tokenId: BigInt! # uint256
+  qty: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
