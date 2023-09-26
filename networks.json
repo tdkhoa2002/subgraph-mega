@@ -1,8 +1,12 @@
 {
-  "sepolia": {
+  "chapel": {
     "megafactory": {
-      "address": "0xb414D7C60DC87eDb46Ea5987f9043653aBE3af34",
-      "startBlock": 4318669
+      "address": "0xA29aa3EA2bf6a9A865bd5CBF88d8613fb1c756c6",
+      "startBlock": 33664791	
+    },
+    "meganft": {
+      "address": "0xc48FA2829561eEc172f2009FBc8987081167c2a1",
+      "startBlock": 33664791	
     }
   }
 }

@@ -4,22 +4,28 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: megafactory
-    network: sepolia
+    network: chapel
     source:
       abi: megafactory
-      address: "0xb414D7C60DC87eDb46Ea5987f9043653aBE3af34"
-      startBlock: 4318669
+      address: "0xA29aa3EA2bf6a9A865bd5CBF88d8613fb1c756c6"
+      startBlock: 33664791
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - DeployedGame
+        - MegaGameContract
         - Order
         - OwnershipTransferred
       abis:
         - name: megafactory
           file: ./abis/megafactory.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
       eventHandlers:
         - event: DeployedGame(address,address,address,address,uint256,uint256,uint256,uint256)
           handler: handleDeployedGame
@@ -28,10 +34,31 @@ dataSources:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/megafactory.ts
+  - kind: ethereum/contract
+    name: meganft
+    network: chapel
+    source:
+      abi: meganft
+      address: "0xc48FA2829561eEc172f2009FBc8987081167c2a1"
+      startBlock: 33664791
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - MintNFT
+      abis:
+        - name: meganft
+          file: ./abis/meganft.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed
+            address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/meganft.ts
 templates:
   - kind: ethereum/contract
-    name: megajackpot
-    network: sepolia
+    name: MegaGameContract
+    network: chapel
     source:
       abi: megajackpot
     mapping:
@@ -40,7 +67,7 @@ templates:
       language: wasm/assemblyscript
       file: ./src/megajackpot.ts
       entities:
-        - CreateGame
+        - MegaGameContract
       abis:
         - name: megafactory
           file: ./abis/megafactory.json

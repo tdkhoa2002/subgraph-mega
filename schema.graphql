@@ -1,9 +1,11 @@
-type DeployedGame @entity {
-  id: Bytes!
+type MegaGameContract @entity {
+  id: ID!
+  name: String!
   contractGameNew: Bytes! # address
-  projectOwner: Bytes! # address
+  projectOwner: [ProjectOwner!]! @derivedFrom(field: "megaGameContracts") # address
   contractGameOrigin: Bytes! # address
   contractToken: Bytes! # address
+  token: Token!
   deployedFee: BigInt! # uint256
   affFee: BigInt! # uint256
   devFee: BigInt! # uint256
@@ -11,10 +13,15 @@ type DeployedGame @entity {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  totalGame: BigInt!
+  createdGames: [CreateGame!]! @derivedFrom(field: "megaGameContract")
+  totalQuantity: BigInt!
+  totalTransactions: BigInt!
+  totalPayAmount: BigInt!
 }
 
 type CreateGame @entity {
-  id: Bytes!
+  id: ID!
   title: String!
   price: BigInt!
   startPrice: BigInt!
@@ -25,10 +32,17 @@ type CreateGame @entity {
   percents: [BigInt!]
   idGame: BigInt!
   newGameContract: Bytes!
+  megaGameContract: MegaGameContract!
+  orders: [Order!]! @derivedFrom(field:"game")
+  totalQuantity: BigInt! 
+  totalTransactions: BigInt!
+  totalPayAmount: BigInt!
+  jackpotTerm: BigInt!
+  jackpotValue: BigInt!
 }
 
 type Order @entity {
-  id: Bytes!
+  id: ID!
   contractGame: Bytes! # address
   idGame: BigInt! # uint256
   tokenId: BigInt! # uint256
@@ -36,6 +50,48 @@ type Order @entity {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  game: CreateGame!
+  amount: BigInt!
+  maker: DataMaker!
+}
+
+type OrderDetail @entity {
+  id: ID!
+  idGame: BigInt!
+  totalReward: BigInt!
+  win: Boolean!
+  devFee: BigInt!
+  affFee: BigInt!
+  ownerFee: BigInt!
+  mktFee: BigInt!
+  orderRewards: [OrderRewards!]! @derivedFrom(field: "orderDetail")
+}
+
+type OrderRewards @entity {
+  id: ID!
+  idGame: BigInt!
+  gameContract: Bytes!
+  tokenId: BigInt!
+  quantity: BigInt!
+  values: [BigInt!]
+  # prizeIndex: [BigInt!]
+  orderDetail: OrderDetail!
+}
+
+type DataMaker @entity {
+  id: ID!
+  address: Bytes!
+  totalVolume: BigInt!
+  totalQuantity: BigInt! 
+  totalTransactions: BigInt!
+  totalReward: BigInt!
+  orders: [Order!]! @derivedFrom(field: "maker")
+}
+
+type ProjectOwner @entity {
+  id: ID!
+  address: Bytes!
+  megaGameContracts: MegaGameContract!
 }
 
 type OwnershipTransferred @entity {
@@ -45,4 +101,26 @@ type OwnershipTransferred @entity {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type Token @entity {
+  id: ID!
+  name: String!
+  symbol: String!
+  decimals: BigInt!
+  megaGameContracts: [MegaGameContract!]! @derivedFrom(field: "token")
+}
+
+type TokenOwnerGame @entity {
+  id: ID!
+  token: Token!
+  projectOwner: ProjectOwner!
+  megaGameContract: MegaGameContract!
+}
+
+type NFT @entity {
+  id: ID!
+  tokenId: BigInt!
+  value: BigInt!
+  owner: Bytes!
 }
