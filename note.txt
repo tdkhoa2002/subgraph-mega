@@ -1,0 +1,2 @@
+"create-local": "graph create --node http://localhost:8020/ tdkhoa2002/megaproject",
+"deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 tdkhoa2002/megaproject",

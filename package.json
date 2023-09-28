@@ -8,8 +8,8 @@
     "create-local": "graph create --node http://localhost:8020/ tdkhoa2002/megaproject",
     "remove-local": "graph remove --node http://localhost:8020/ tdkhoa2002/megaproject",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 tdkhoa2002/megaproject",
-    "create-pul": "graph create --node http://171.244.136.191:8020 megaproject/megacoin",
-    "deploy-pul": "graph deploy --product hosted-service --node http://171.244.136.191:8020 --ipfs https://ipfs.network.thegraph.com/ipfs/ megaproject/megacoin subgraph.yaml",
+    "create-pul": "graph create --node http://localhost:8020 megaproject/megacoin",
+    "deploy-pul": "graph deploy --product hosted-service --node http://localhost:8020 --ipfs https://ipfs.network.thegraph.com/ipfs/api/v0 megaproject/megacoin subgraph.yaml",
     "test": "graph test"
   },
   "dependencies": {

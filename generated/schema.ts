@@ -539,6 +539,232 @@ export class CreateGame extends Entity {
   }
 }
 
+export class PrizeCount extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save PrizeCount entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type PrizeCount must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("PrizeCount", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): PrizeCount | null {
+    return changetype<PrizeCount | null>(store.get_in_block("PrizeCount", id));
+  }
+
+  static load(id: string): PrizeCount | null {
+    return changetype<PrizeCount | null>(store.get("PrizeCount", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get countPrize(): Array<BigInt> | null {
+    let value = this.get("countPrize");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set countPrize(value: Array<BigInt> | null) {
+    if (!value) {
+      this.unset("countPrize");
+    } else {
+      this.set("countPrize", Value.fromBigIntArray(<Array<BigInt>>value));
+    }
+  }
+
+  get prize0(): BigInt {
+    let value = this.get("prize0");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize0(value: BigInt) {
+    this.set("prize0", Value.fromBigInt(value));
+  }
+
+  get prize1(): BigInt {
+    let value = this.get("prize1");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize1(value: BigInt) {
+    this.set("prize1", Value.fromBigInt(value));
+  }
+
+  get prize2(): BigInt {
+    let value = this.get("prize2");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize2(value: BigInt) {
+    this.set("prize2", Value.fromBigInt(value));
+  }
+
+  get prize3(): BigInt {
+    let value = this.get("prize3");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize3(value: BigInt) {
+    this.set("prize3", Value.fromBigInt(value));
+  }
+
+  get prize4(): BigInt {
+    let value = this.get("prize4");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize4(value: BigInt) {
+    this.set("prize4", Value.fromBigInt(value));
+  }
+
+  get prize5(): BigInt {
+    let value = this.get("prize5");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize5(value: BigInt) {
+    this.set("prize5", Value.fromBigInt(value));
+  }
+
+  get prize6(): BigInt {
+    let value = this.get("prize6");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize6(value: BigInt) {
+    this.set("prize6", Value.fromBigInt(value));
+  }
+
+  get prize7(): BigInt {
+    let value = this.get("prize7");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize7(value: BigInt) {
+    this.set("prize7", Value.fromBigInt(value));
+  }
+
+  get prize8(): BigInt {
+    let value = this.get("prize8");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize8(value: BigInt) {
+    this.set("prize8", Value.fromBigInt(value));
+  }
+
+  get prize9(): BigInt {
+    let value = this.get("prize9");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize9(value: BigInt) {
+    this.set("prize9", Value.fromBigInt(value));
+  }
+
+  get prize10(): BigInt {
+    let value = this.get("prize10");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize10(value: BigInt) {
+    this.set("prize10", Value.fromBigInt(value));
+  }
+
+  get prize11(): BigInt {
+    let value = this.get("prize11");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set prize11(value: BigInt) {
+    this.set("prize11", Value.fromBigInt(value));
+  }
+
+  get game(): string {
+    let value = this.get("game");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set game(value: string) {
+    this.set("game", Value.fromString(value));
+  }
+}
+
 export class Order extends Entity {
   constructor(id: string) {
     super();
@@ -707,6 +933,19 @@ export class Order extends Entity {
   set maker(value: string) {
     this.set("maker", Value.fromString(value));
   }
+
+  get orderDetail(): string {
+    let value = this.get("orderDetail");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set orderDetail(value: string) {
+    this.set("orderDetail", Value.fromString(value));
+  }
 }
 
 export class OrderDetail extends Entity {
@@ -841,8 +1080,8 @@ export class OrderDetail extends Entity {
     this.set("mktFee", Value.fromBigInt(value));
   }
 
-  get orderRewards(): OrderRewardsLoader {
-    return new OrderRewardsLoader(
+  get orderRewards(): OrderRewardLoader {
+    return new OrderRewardLoader(
       "OrderDetail",
       this.get("id")!.toString(),
       "orderRewards"
@@ -850,7 +1089,7 @@ export class OrderDetail extends Entity {
   }
 }
 
-export class OrderRewards extends Entity {
+export class OrderReward extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -858,24 +1097,24 @@ export class OrderRewards extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save OrderRewards entity without an ID");
+    assert(id != null, "Cannot save OrderReward entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type OrderRewards must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type OrderReward must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("OrderRewards", id.toString(), this);
+      store.set("OrderReward", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): OrderRewards | null {
-    return changetype<OrderRewards | null>(
-      store.get_in_block("OrderRewards", id)
+  static loadInBlock(id: string): OrderReward | null {
+    return changetype<OrderReward | null>(
+      store.get_in_block("OrderReward", id)
     );
   }
 
-  static load(id: string): OrderRewards | null {
-    return changetype<OrderRewards | null>(store.get("OrderRewards", id));
+  static load(id: string): OrderReward | null {
+    return changetype<OrderReward | null>(store.get("OrderReward", id));
   }
 
   get id(): string {
@@ -943,21 +1182,30 @@ export class OrderRewards extends Entity {
     this.set("quantity", Value.fromBigInt(value));
   }
 
-  get values(): Array<BigInt> | null {
+  get values(): BigInt {
     let value = this.get("values");
     if (!value || value.kind == ValueKind.NULL) {
-      return null;
+      throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBigIntArray();
+      return value.toBigInt();
     }
   }
 
-  set values(value: Array<BigInt> | null) {
-    if (!value) {
-      this.unset("values");
+  set values(value: BigInt) {
+    this.set("values", Value.fromBigInt(value));
+  }
+
+  get transactionHash(): Bytes {
+    let value = this.get("transactionHash");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
     } else {
-      this.set("values", Value.fromBigIntArray(<Array<BigInt>>value));
+      return value.toBytes();
     }
+  }
+
+  set transactionHash(value: Bytes) {
+    this.set("transactionHash", Value.fromBytes(value));
   }
 
   get orderDetail(): string {
@@ -1561,7 +1809,7 @@ export class OrderLoader extends Entity {
   }
 }
 
-export class OrderRewardsLoader extends Entity {
+export class OrderRewardLoader extends Entity {
   _entity: string;
   _field: string;
   _id: string;
@@ -1573,9 +1821,9 @@ export class OrderRewardsLoader extends Entity {
     this._field = field;
   }
 
-  load(): OrderRewards[] {
+  load(): OrderReward[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
-    return changetype<OrderRewards[]>(value);
+    return changetype<OrderReward[]>(value);
   }
 }
 

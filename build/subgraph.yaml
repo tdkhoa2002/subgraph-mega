@@ -8,7 +8,7 @@ dataSources:
     source:
       abi: megafactory
       address: "0xA29aa3EA2bf6a9A865bd5CBF88d8613fb1c756c6"
-      startBlock: 33664791
+      startBlock: 33694924
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -26,6 +26,8 @@ dataSources:
           file: megafactory\abis\ERC20NameBytes.json
         - name: ERC20SymbolBytes
           file: megafactory\abis\ERC20SymbolBytes.json
+        - name: megajackpot
+          file: megafactory\abis\megajackpot.json
       eventHandlers:
         - event: DeployedGame(address,address,address,address,uint256,uint256,uint256,uint256)
           handler: handleDeployedGame
@@ -40,7 +42,7 @@ dataSources:
     source:
       abi: meganft
       address: "0xc48FA2829561eEc172f2009FBc8987081167c2a1"
-      startBlock: 33664791
+      startBlock: 33694924
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

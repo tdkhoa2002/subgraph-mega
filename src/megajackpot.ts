@@ -4,7 +4,7 @@ import { CreateGame,
     MegaGameContract, 
     Order as OrderFactory, 
     OrderDetail, 
-    OrderRewards 
+    OrderReward
 } from "../generated/schema";
 import { CreateGame as CreateGameEvent,
         Order as OrderEvent,

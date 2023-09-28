@@ -2,11 +2,13 @@
   "chapel": {
     "megafactory": {
       "address": "0xA29aa3EA2bf6a9A865bd5CBF88d8613fb1c756c6",
-      "startBlock": 33664791	
+      "startBlock": 33694924
+	
     },
     "meganft": {
       "address": "0xc48FA2829561eEc172f2009FBc8987081167c2a1",
-      "startBlock": 33664791	
+      "startBlock": 33694924
+	
     }
   }
 }

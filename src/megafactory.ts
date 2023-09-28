@@ -1,10 +1,10 @@
-import { log } from "@graphprotocol/graph-ts";
+import { BigInt, Value, log } from "@graphprotocol/graph-ts";
 import {
   DeployedGame as DeployedGameEvent,
   Order as OrderEvent,
   OwnershipTransferred as OwnershipTransferredEvent
 } from "../generated/megafactory/megafactory"
-import { CreateGame, DataMaker, MegaGameContract, Order, OrderDetail, OrderRewards, OwnershipTransferred, ProjectOwner, Token, TokenOwnerGame } from "../generated/schema"
+import { CreateGame, DataMaker, MegaGameContract, Order, OrderDetail, OrderReward, OwnershipTransferred, ProjectOwner, Token, TokenOwnerGame } from "../generated/schema"
 import { MegaGameContract as MegaTemplates } from "../generated/templates"
 import { 
   ONE_BI,
@@ -118,21 +118,28 @@ export function handleOrder(event: OrderEvent): void {
     entity.amount = amount
     entity.maker = maker.id
 
-    log.info('order rewards: ', [])
-    let orderRewards = new OrderRewards(
-      event.params.contractGame.toHex().concat("-").concat(event.params.qty.toString()).concat("-").concat(event.params.tokenId.toString())
-    )
-    // orderRewards.values = fetchOrderRewards(event.params.contractGame,event.params.qty, event.params.tokenId)
-    orderRewards.gameContract = event.params.contractGame
-    orderRewards.idGame = event.params.idGame
-    orderRewards.tokenId = event.params.tokenId
-    orderRewards.quantity = event.params.qty
+    for(let i = ZERO_BI; i.lt(event.params.qty); i = i.plus(ONE_BI)) {
+      let orderReward = new OrderReward(
+        event.params.contractGame.toHex().concat("-").concat(event.params.tokenId.toString()).concat("-").concat(i.toString())
+      )
+      orderReward.values = fetchOrderRewards(event.params.contractGame, i, event.params.tokenId)
+      orderReward.gameContract = event.params.contractGame
+      orderReward.idGame = event.params.idGame
+      orderReward.tokenId = event.params.tokenId
+      orderReward.quantity = event.params.qty
+      orderReward.transactionHash = event.transaction.hash
+      let orderDetail = OrderDetail.load(event.transaction.hash.toHex())
+      if(orderDetail != null) {
+        orderReward.orderDetail = orderDetail.id
+      }
+      log.info('order rewards id: {}', [orderReward.id])
+      orderReward.save()
+    }
+
     let orderDetail = OrderDetail.load(event.transaction.hash.toHex())
     if(orderDetail != null) {
-      orderRewards.orderDetail = orderDetail.id
+      entity.orderDetail = orderDetail.id
     }
-    orderRewards.save()
-
     entity.save()
   }
 }

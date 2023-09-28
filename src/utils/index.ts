@@ -86,18 +86,12 @@ export function fetchTokenName(tokenAddress: Address): string {
   return nameValue;
 }
 
-export function fetchOrderRewards(megaJackpotContract: Address, quantity: BigInt, tokenId: BigInt): Array<BigInt> {
-  log.info('fetch Order Reward !!! ', [])
+export function fetchOrderRewards(megaJackpotContract: Address, index: BigInt, tokenId: BigInt): BigInt {
   let contract = MegaJackpotContract.bind(megaJackpotContract)
-  let orderRewards = new Array<BigInt>()
 
-  for(let i = ZERO_BI; i < quantity; i.plus(ONE_BI)) {
-    let prizeResult = contract.try_orderRewards(tokenId , i) //return value of prize index
-    log.info('prize: ', [prizeResult.value.toString()])
-    orderRewards.push(prizeResult.value)
-  }
+  let prize = contract.try_orderRewards(tokenId , index)
 
-  return orderRewards //return order rewards
+  return prize.value //return order rewards
 }
 
 export function fetchTokenDecimals(tokenAddress: Address): BigInt {

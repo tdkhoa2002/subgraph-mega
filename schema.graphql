@@ -33,12 +33,30 @@ type CreateGame @entity {
   idGame: BigInt!
   newGameContract: Bytes!
   megaGameContract: MegaGameContract!
-  orders: [Order!]! @derivedFrom(field:"game")
+  orders: [Order!]! @derivedFrom(field: "game")
   totalQuantity: BigInt! 
   totalTransactions: BigInt!
   totalPayAmount: BigInt!
   jackpotTerm: BigInt!
   jackpotValue: BigInt!
+}
+
+type PrizeCount @entity {
+  id: ID!
+  countPrize: [BigInt!]
+  prize0: BigInt!
+  prize1: BigInt!
+  prize2: BigInt!
+  prize3: BigInt!
+  prize4: BigInt!
+  prize5: BigInt!
+  prize6: BigInt!
+  prize7: BigInt!
+  prize8: BigInt!
+  prize9: BigInt!
+  prize10: BigInt!
+  prize11: BigInt!
+  game: CreateGame!
 }
 
 type Order @entity {
@@ -53,6 +71,7 @@ type Order @entity {
   game: CreateGame!
   amount: BigInt!
   maker: DataMaker!
+  orderDetail: OrderDetail!
 }
 
 type OrderDetail @entity {
@@ -64,16 +83,17 @@ type OrderDetail @entity {
   affFee: BigInt!
   ownerFee: BigInt!
   mktFee: BigInt!
-  orderRewards: [OrderRewards!]! @derivedFrom(field: "orderDetail")
+  orderRewards: [OrderReward!]! @derivedFrom(field: "orderDetail")
 }
 
-type OrderRewards @entity {
+type OrderReward @entity {
   id: ID!
   idGame: BigInt!
   gameContract: Bytes!
   tokenId: BigInt!
   quantity: BigInt!
-  values: [BigInt!]
+  values: BigInt!
+  transactionHash: Bytes!
   # prizeIndex: [BigInt!]
   orderDetail: OrderDetail!
 }
